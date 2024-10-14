@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clutch</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
@@ -26,11 +27,20 @@
                     </button>
                 </div>
                 <ul class="topicos">
-                    <li>DEPARTAMENTOS</li>
-                    <li>PERIFÉRICOS</li>
-                    <li>FALE CONOSCO</li>
-                    <li>MONTE SEU PC</li>
-                    <li>SOBRE NÓS</li>
+                    <div class="dropdown">
+                        <button class="dropbtn">CATEGORIAS</button>
+                            <div class="dropdown-content">
+                            <a href="#">Link 1</a>
+                            <a href="#">Link 2</a>
+                            <a href="#">Link 3</a>
+                            </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropbtn">FALE CONOSCO</button>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropbtn">SOBRE NÓS</button>
+                    </div>
                 </ul>
             </section>
         </div>

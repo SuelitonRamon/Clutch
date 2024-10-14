@@ -93,6 +93,8 @@ a{
 }
 
 .ul, li{
+    font-weight: bold;
+    font-size: 20px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -146,6 +148,7 @@ a{
     width: 100vh;
     height: 100vh;
     background-color: #cae8ff69;
+}
 
  #form-cadastro{
   z-index: 1000;
