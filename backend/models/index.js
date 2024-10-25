@@ -1,34 +1,43 @@
-// models/index.js
-const sequelize = require('../config/database');
-const { DataTypes } = require('sequelize');
+'use strict';
 
-const User = sequelize.define('User', {
-  name: DataTypes.STRING,
-  email: DataTypes.STRING,
-  password: DataTypes.STRING
-});
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
+const process = require('process');
+const basename = path.basename(__filename);
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/../config/config.json')[env];
+const db = {};
 
-const Category = sequelize.define('Category', {
-  name: DataTypes.STRING
-});
+let sequelize;
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else {
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
 
-const Product = sequelize.define('Product', {
-  name: DataTypes.STRING,
-  description: DataTypes.TEXT,
-  price: DataTypes.DECIMAL,
-  categoryId: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'Categories',
-      key: 'id'
-    }
+fs
+  .readdirSync(__dirname)
+  .filter(file => {
+    return (
+      file.indexOf('.') !== 0 &&
+      file !== basename &&
+      file.slice(-3) === '.js' &&
+      file.indexOf('.test.js') === -1
+    );
+  })
+  .forEach(file => {
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+    db[model.name] = model;
+  });
+
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
   }
 });
 
-// Relacionamentos
-Product.belongsTo(Category, { foreignKey: 'categoryId' });
-Category.hasMany(Product, { foreignKey: 'categoryId' });
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
-sequelize.sync();
-
-module.exports = { User, Category, Product };
+module.exports = db;
