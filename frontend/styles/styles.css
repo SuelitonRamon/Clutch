@@ -216,6 +216,12 @@ header {
     font-size: 14px;
     color: #333;
     margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limita a 3 linhas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
 }
 
 .buy-button {

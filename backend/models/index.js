@@ -1,43 +1,29 @@
-'use strict';
+const {sequelize, DataTypes} = require('../config/database'); // Não é necessário importar Sequelize, apenas DataTypes
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const process = require('process');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
-const db = {};
+// Certifique-se de passar a instância 'sequelize' e não a classe 'Sequelize'
+const Category = require('./category')(sequelize, DataTypes);
+const Product = require('./product')(sequelize, DataTypes); // Corrigido o caminho
+const User = require('./user')(sequelize, DataTypes); // Corrigido o caminho
+const Cart = require('./cart')(sequelize, DataTypes); // Corrigido o caminho
+const CartItem = require('./cartItem')(sequelize, DataTypes); // Corrigido o caminho
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+// Relacionamentos
+Product.belongsTo(Category, { foreignKey: 'categoryId' });
+Category.hasMany(Product, { foreignKey: 'categoryId' });
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (
-      file.indexOf('.') !== 0 &&
-      file !== basename &&
-      file.slice(-3) === '.js' &&
-      file.indexOf('.test.js') === -1
-    );
-  })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
+Cart.belongsTo(User, { foreignKey: 'usuarioId', as: 'usuario' }); // Correção aqui, deve ser 'User'
+Cart.hasMany(CartItem, { foreignKey: 'cartId', as: 'itens' });
 
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
+CartItem.belongsTo(Cart, { foreignKey: 'cartId', as: 'cart' });
+CartItem.belongsTo(Product, { foreignKey: 'productId', as: 'produto' });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+sequelize.sync(); // Sincroniza os modelos com o banco de dados
 
-module.exports = db;
+module.exports = {
+  sequelize,
+  User,
+  Product,
+  Category,
+  Cart,
+  CartItem,
+};
