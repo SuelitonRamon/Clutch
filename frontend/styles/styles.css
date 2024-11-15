@@ -44,12 +44,27 @@ header {
 .login-inter {
     display: flex;
     align-items: center;
+    gap: 15px;
+}
+
+.menu{
+  border: none;
+  background: none;
+  display: none;
+}
+
+.menu-hamburguer{
+  width: 25px;
+  filter: invert();
 }
 
 .login-icon {
     filter: invert();
     height: 35px;
-    margin-right: 10px;
+}
+
+.welcome{
+  font-size: 15px;
 }
 
 .login-header {

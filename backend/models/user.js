@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const jwt = require('jsonwebtoken');
 
 module.exports = (sequelize) => {
   const User = sequelize.define('User', {

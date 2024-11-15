@@ -15,12 +15,20 @@
                         <a href="index.html">
                             <img class="Clutch" src="sources/Clutch-removebg-preview.png" alt="">
                         </a>
-                        <input class="search" name="text" type="text" placeholder="BUSQUE SEU PRODUTO">
+                        <input class="search" name="text" type="text" placeholder="BUSQUE SEU PRODUTO?">
                         <section class="login-inter">
                         <img class="login-icon" src="sources/login-de-usuario.png" alt="">
                         <p class="login-header">
                             <a href="login.html">ENTRE</a><br> ou faça seu <br> <a href="cadastro.html">CADASTRO</a>
                         </p>
+                        <div class="dropdown">
+                            <button class="menu"><img class="menu-hamburguer" src="sources/menu-hamburguer.png" alt=""></button>
+                                <div class="dropdown-content">
+                                <a class="loggout-btn" href="#">Sair</a>
+                                <a href="#">Link 2</a>
+                                <a href="#">Link 3</a>
+                                </div>
+                        </div>
                         </section>
                     <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                         <img class="cesta" src="sources/cesta-de-compras.png" alt="Acesse seu carrinho">
@@ -146,6 +154,7 @@
             </div>
         </main>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="services/api.js"></script>
 </body>
 </html>
