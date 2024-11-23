@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Verifica se o usuário já está logado verificando o token no localStorage
     const token = localStorage.getItem('token');
     if (token) {
-        alert(token);
+        window.location.href = 'index.html';
     }
 
     // Selecione o formulário de login
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('token', token); // Armazena o token
 
             // Redirecionar para a página de usuário autenticado
-            window.location.href = 'index.html'; // Substitua 'dashboard.html' pela página que deseja redirecionar
+            window.location.href = 'index.html';
         } catch (error) {
             console.error('Erro ao logar:', error);
 

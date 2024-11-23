@@ -1,16 +1,12 @@
 const {sequelize, DataTypes} = require('../config/database'); // Não é necessário importar Sequelize, apenas DataTypes
 
 // Certifique-se de passar a instância 'sequelize' e não a classe 'Sequelize'
-const Category = require('./category')(sequelize, DataTypes);
 const Product = require('./product')(sequelize, DataTypes); // Corrigido o caminho
 const User = require('./user')(sequelize, DataTypes); // Corrigido o caminho
 const Cart = require('./cart')(sequelize, DataTypes); // Corrigido o caminho
 const CartItem = require('./cartItem')(sequelize, DataTypes); // Corrigido o caminho
 
 // Relacionamentos
-Product.belongsTo(Category, { foreignKey: 'categoryId' });
-Category.hasMany(Product, { foreignKey: 'categoryId' });
-
 Cart.belongsTo(User, { foreignKey: 'usuarioId', as: 'usuario' }); // Correção aqui, deve ser 'User'
 Cart.hasMany(CartItem, { foreignKey: 'cartId', as: 'itens' });
 
@@ -23,7 +19,6 @@ module.exports = {
   sequelize,
   User,
   Product,
-  Category,
   Cart,
   CartItem,
 };

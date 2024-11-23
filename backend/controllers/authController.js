@@ -18,7 +18,7 @@ exports.login = async (req, res) => {
         }
 
         // Gerar token
-        const token = jwt.sign({ id: usuario.id, nome: usuario.nome }, SECRET_KEY, { expiresIn: '8h' });
+        const token = jwt.sign({ id: usuario.id, nome: usuario.nome, role: usuario.role }, SECRET_KEY, { expiresIn: '8h' });
 
         return res.json({ mensagem: 'Login bem-sucedido!', token });
     } catch (error) {
@@ -29,17 +29,35 @@ exports.login = async (req, res) => {
 
 // Middleware para proteger rotas
 exports.verificarToken = (req, res, next) => {
-    const token = req.headers['authorization'];
+    const authHeader = req.headers['authorization'];
 
-    if (!token) {
+    if (!authHeader) {
         return res.status(403).json({ mensagem: 'Token não fornecido!' });
     }
 
+    const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : authHeader;
+
     try {
         const decoded = jwt.verify(token, SECRET_KEY);
-        req.usuario = decoded; // Salvar dados do token no req
+        req.usuario = decoded; // Salva os dados do token no objeto req
         next();
     } catch (error) {
         return res.status(401).json({ mensagem: 'Token inválido!' });
     }
+};
+
+exports.verificarRole = (roleRequerida) => {
+    return (req, res, next) => {
+        if (!req.usuario) {
+            return res.status(401).json({ mensagem: 'Usuário não autenticado!' });
+        }
+
+        console.log('Role do usuário:', req.usuario.role);  // Log para verificar a role do usuário
+
+        if (req.usuario.role !== roleRequerida) {
+            return res.status(403).json({ mensagem: 'Acesso negado! Permissão insuficiente.' });
+        }
+
+        next(); // Usuário autenticado e autorizado
+    };
 };

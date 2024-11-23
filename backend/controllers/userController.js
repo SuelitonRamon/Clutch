@@ -52,29 +52,27 @@ getUserById = async (req, res) => {
 
 // Atualizar um usuário
 updateUser = async (req, res) => {
-  try {
-    const { nome, email, senha, googleId, nickname, role, foto } = req.body;
+  const { id } = req.params; // ID do usuário a ser atualizado
+  const updates = req.body; // Dados enviados para atualização
 
-    const user = await User.findByPk(req.params.id);
+  try {
+    // Validação: verifica se o usuário existe
+    const user = await User.findByPk(id);
     if (!user) {
-      return res.status(404).json({ error: 'Usuário não encontrado' });
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
     }
 
-    // Atualizar informações do usuário
-    user.nome = nome || user.nome;
-    user.email = email || user.email;
-    user.senha = senha || user.senha;
-    user.googleId = googleId || user.googleId;
-    user.nickname = nickname || user.nickname;
-    user.role = role || user.role;
-    user.foto = foto || user.foto;
+    // Atualiza o usuário com os dados fornecidos
+    await user.update(updates);
 
-    await user.save();
-
-    res.status(200).json(user);
+    // Retorna o usuário atualizado
+    res.status(200).json({
+      message: 'Usuário atualizado com sucesso.',
+      user
+    });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Erro ao atualizar usuário' });
+    res.status(500).json({ message: 'Erro ao atualizar o usuário.', error: error.message });
   }
 };
 

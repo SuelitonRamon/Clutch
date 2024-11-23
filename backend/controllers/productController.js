@@ -4,7 +4,7 @@ const path = require('path');
 // Função para criar um novo produto
 const createProduct = async (req, res) => {
   try {
-    const { nome, descricao, avaliacao, preco, genero, trailer } = req.body;
+    const { nome, descricao, avaliacao, preco, categoria, trailer } = req.body;
 
     // Criação do produto no banco de dados
     const newProduct = await Product.create({
@@ -12,7 +12,7 @@ const createProduct = async (req, res) => {
       descricao,
       avaliacao,
       preco,
-      genero,
+      categoria,
       trailer
     });
 
@@ -69,36 +69,49 @@ const getProductById = async (req, res) => {
 
 // Função para atualizar um produto
 const updateProduct = async (req, res) => {
-  const { id } = req.params;
-  const { nome, descricao, avaliacao, preco, genero, capa, img_1, img_2, img_3, trailer } = req.body;
-
   try {
-    const product = await Product.findOne({ where: { id } });
+    const { id } = req.params; // ID do produto a ser atualizado
+    const { nome, descricao, avaliacao, preco, categoria, trailer } = req.body;
+
+    // Busca o produto no banco
+    const product = await Product.findByPk(id);
 
     if (!product) {
       return res.status(404).json({ message: 'Produto não encontrado.' });
     }
 
-    // Atualizando o produto
-    await product.update({
+    // Atualiza os campos fornecidos
+    const updatedData = {
       nome,
       descricao,
       avaliacao,
       preco,
-      genero,
-      capa,
-      img_1,
-      img_2,
-      img_3,
+      categoria,
       trailer
-    });
+    };
+
+    // Verifica se há novas imagens e atualiza os caminhos
+    const capa = req.files && req.files['capa'] ? 'uploads/' + req.files['capa'][0].filename : product.capa;
+    const img_1 = req.files && req.files['img_1'] ? 'uploads/' + req.files['img_1'][0].filename : product.img_1;
+    const img_2 = req.files && req.files['img_2'] ? 'uploads/' + req.files['img_2'][0].filename : product.img_2;
+    const img_3 = req.files && req.files['img_3'] ? 'uploads/' + req.files['img_3'][0].filename : product.img_3;
+
+    // Adiciona as imagens ao objeto de atualização
+    updatedData.capa = capa;
+    updatedData.img_1 = img_1;
+    updatedData.img_2 = img_2;
+    updatedData.img_3 = img_3;
+
+    // Atualiza o produto no banco de dados
+    await product.update(updatedData);
 
     return res.status(200).json(product);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Erro ao atualizar produto.' });
+    return res.status(500).json({ message: 'Erro ao atualizar o produto.' });
   }
 };
+
 
 // Função para excluir um produto
 const deleteProduct = async (req, res) => {

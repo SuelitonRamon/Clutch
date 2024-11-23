@@ -7,42 +7,6 @@ if (loggoutbtn) {
     });
     }
 
-// Função para buscar os produtos e renderizá-los
-async function fetchProducts() {
-    try {
-        const response = await axios.get('http://localhost:3000/api/products');
-        const products = response.data;
-
-        const itensContainer = document.querySelector('.itens');
-
-        if (!itensContainer) {
-            console.error('Elemento .itens não encontrado no DOM.');
-            return;
-        }
-
-        itensContainer.innerHTML = '';
-
-        products.forEach(product => {
-            const item = document.createElement('div');
-            item.classList.add('item');
-
-            item.innerHTML = `
-                <img class="novo-produto" src="http://localhost:3000/${product.capa}" alt="${product.nome}">
-                <p class="product-name">${product.nome}</p>
-                <p class="product-price">R$ ${parseFloat(product.preco).toFixed(2)}</p>
-                <button class="buy-button">
-                    <img class="buy-cart" src="sources/carrinho-de-compras.png" alt="Carrinho">
-                    COMPRAR
-                </button>
-            `;
-
-            itensContainer.appendChild(item);
-        });
-    } catch (error) {
-        console.error('Erro ao buscar os produtos:', error);
-    }
-}
-
 // Função para decodificar o token JWT
 function decodeToken(token) {
     try {
@@ -56,7 +20,6 @@ function decodeToken(token) {
     }
 }
 
-
 // Manipula o login dependendo da validade do token
 function handleLogin() {
     const token = localStorage.getItem('token');
@@ -66,6 +29,8 @@ function handleLogin() {
         try {
             const userData = decodeToken(token);
             const expirationTime = userData.exp;
+            const role = userData.role;
+            const dropdownContent = document.querySelector('.dropdown-content');
 
             if (Date.now() / 1000 < expirationTime) {
                 console.log('Token válido. Usuário logado:', userData);
@@ -73,6 +38,16 @@ function handleLogin() {
     <span class="welcome">Olá, ${userData.nome}</span>
 `;
                 menubutton.style.display= 'block';
+
+                if (role === 'admin') {
+                    const adminLink = document.createElement('a');
+                    adminLink.href = '/admin';
+                    adminLink.textContent = 'Administrativo';
+                    adminLink.href = 'cadastroProduto.html';
+                    const secondLink = dropdownContent.querySelectorAll('a')[0]; // Seleciona o segundo <a>
+    dropdownContent.insertBefore(adminLink, secondLink); // Insere antes do segundo <a>
+                }    
+                
             } else {
                 console.warn('Token expirado.');
                 localStorage.removeItem('token');
@@ -87,6 +62,5 @@ function handleLogin() {
 
 // Chama as funções ao carregar a página
 document.addEventListener('DOMContentLoaded', function () {
-    fetchProducts();
     handleLogin();
 });

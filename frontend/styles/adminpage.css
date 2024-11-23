@@ -1,0 +1,884 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 75px;
+  background-color: #050A30; /* Cor de fundo do header */
+  z-index: 1000; /* Para garantir que fique acima de outros elementos */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil */
+  padding: 0px 100px;
+}
+
+.cabecalho2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 100px;
+    height: 100%;
+    gap: 10px;
+}
+
+.Clutch {
+    width: 150px;
+}
+
+.search {
+    flex-grow: 1;
+    margin: 0 20px;
+    height: 45px;
+    padding: 0 15px;
+    border-radius: 6px;
+    border: 2px solid #333;
+}
+
+.login-inter {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.menu{
+  border: none;
+  background: none;
+  display: none;
+}
+
+.menu-hamburguer{
+  width: 25px;
+  filter: invert();
+}
+
+.login-icon {
+    filter: invert();
+    height: 35px;
+}
+
+.welcome{
+  font-size: 15px;
+}
+
+.login-header {
+    color: #fff;
+    font-size: 13px;
+    margin: 0px;
+}
+
+.login-header a{
+  color: inherit;
+}
+
+.btn-primary {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.cesta {
+    filter: invert();
+    width: 45px;
+}
+
+.dropbtn {
+    background-color: #12229d;
+    color: white;
+    padding: 5px 20px;
+    font-size: 17px;
+    border: none;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #ddd;}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {background-color: #050A30;}
+
+@media screen and (max-width: 768px) {
+    .container {
+        margin: 20px auto;
+    }
+
+    .headerr {
+        padding: 20px;
+    }
+
+    .table-container {
+        padding: 10px;
+        overflow-x: auto;
+    }
+
+    th, td {
+        padding: 12px;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+        justify-content: center;
+    }
+    .cabecalho2 {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search {
+        width: 90%;
+        margin: 15px 0;
+    }
+
+    .topicos {
+        flex-wrap: wrap;
+    }
+
+    .topicos li {
+
+        padding: 10px;
+        font-size: 12px;
+    }
+}
+
+.containeradmin {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: row;
+  }
+
+  .containeradmin aside {
+    background-color: #050A30;
+    width: 25%; /* Largura padrão em telas grandes */
+    height: 100vh;
+    transition: width 0.3s ease, transform 0.3s ease;
+}
+
+/* Estilo para telas menores */
+@media (max-width: 768px) {
+    .containeradmin aside {
+        width: 60%; /* Reduz a largura em tablets */
+    }
+}
+
+@media (max-width: 480px) {
+
+  .cabecalho2{
+    padding: 10px 0px;
+  }
+
+  .navigation{
+    z-index: 999;
+  }
+
+  .navlink{
+    padding-top: 50px;
+  }
+
+  .new-productdiv{
+    justify-content: center;
+  }
+
+  .new-productdiv button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 100px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: #3b82f6;
+    color: white;
+    transition: all 0.3s ease;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.new-productdiv button:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+}
+
+.new-productdiv button svg {
+    width: 20px;
+    height: 20px;
+}
+
+  header{
+    height: 125px;
+  }
+  .crud-produtos{
+    padding-top: 50px;
+  }
+  
+  .formularionewproduto{
+    padding-top: 50px;
+  }
+}
+
+/* Botão de abrir/fechar */
+.botaofoda {
+    background-color: transparent;
+    position: fixed;
+    top: 5px;
+    right: 10px;
+    z-index: 1100;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    display: none; /* Oculta em telas grandes */
+}
+
+.navigation {
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  background: var(--blue);
+  border-left: 10px solid var(--blue);
+  transition: 0.5s;
+  overflow: hidden;
+  background-color: #050A30;
+}
+.navigation.active {
+  width: 60px;
+}
+
+.navigation ul {
+  padding-top: 75px;
+  padding-left: 0px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.cardapio{
+  width: 30px;
+  filter: invert();
+}
+
+.navigation ul li {
+  position: relative;
+  width: 100%;
+  list-style: none;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.navigation ul li:hover,
+.navigation ul li.hovered {
+  background-color: var(--white);
+}
+
+.navigation ul li a {
+  position: relative;
+  display: block;
+  width: 100%;
+  display: flex;
+  text-decoration: none;
+  color: white;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.navigation ul li:hover a{
+  color: black;
+  background-color: #e0e0e0
+}
+
+.ative {
+  color: black !important;
+  background-color: #f4f4f4 !important;
+}
+
+.navigation ul li a .icon {
+  position: relative;
+  display: block;
+  min-width: 60px;
+  height: 60px;
+  line-height: 75px;
+  text-align: center;
+}
+.navigation ul li a .icon ion-icon {
+  font-size: 1.75rem;
+}
+
+.navigation ul li a .title {
+  position: relative;
+  display: block;
+  padding: 0 10px;
+  height: 60px;
+  line-height: 60px;
+  text-align: start;
+  white-space: nowrap;
+}
+
+.navigation ul li:hover a::before,
+.navigation ul li.hovered a::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -50px;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: 35px 35px 0 10px var(--white);
+  pointer-events: none;
+}
+.navigation ul li:hover a::after,
+.navigation ul li.hovered a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -50px;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: 35px -35px 0 10px var(--white);
+  pointer-events: none;
+}
+
+.toggle {
+  color: white;
+  position: absolute;
+  top: 10px;
+  left: 5px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+/* Main Section */
+.principaladmin {
+    width: 75%;
+    height: auto;
+    margin: 0 auto;
+    padding: 20px 10px;
+    border-right: solid black 1px;
+}
+
+.crud-produtos{
+  display: block;
+}
+
+
+.cadastroproduto-form{
+    display: none;
+    padding: 30px;
+  }
+  
+  .cadastro-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+.tittle-button{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+  .cadastro-label {
+    display: block;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  
+  .cadastro-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #fafafa;
+    transition: border-color 0.3s;
+  }
+
+/* Estilos gerais */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+h1 {
+  text-align: center;
+}
+
+/* Estilos para a lista de produtos */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.item {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 220px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.item:hover {
+  transform: scale(1.05);
+}
+
+.item p {
+  margin: 10px 0;
+  color: #555;
+}
+
+.item .name {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.item .price {
+  color: green;
+  font-size: 16px;
+}
+
+.item .category {
+  color: #888;
+  font-size: 14px;
+}
+
+/* Botões de ação */
+.actions {
+  margin-top: 10px;
+}
+
+.actions button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.actions button:hover {
+  background-color: #0056b3;
+}
+
+.new-productdiv{
+  display:flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.new-productdiv button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: #1d0f9e;
+  color: white;
+  transition: all 0.3s ease;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.new-productdiv button:hover {
+  background-color: #06173d;
+  transform: translateY(-1px);
+}
+
+.new-productdiv button svg {
+  width: 25px;
+  height: 25px;
+}
+
+.users-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.item .email{
+  font-size: 15px;
+}
+
+.item .IDrole {
+  color: #000000;
+  font-size: 14px;
+  font-weight: bolder;
+}
+
+.item .role {
+  color: #888;
+  font-size: 14px;
+}
+
+.modal-footer{
+  display: flex;
+  justify-content: center;
+}
+
+#enviar{
+  background-color: #2f3eb1;
+}
+
+#enviar:hover{
+  background-color: #1a2aa7;
+}
+
+#textcontainer{
+  text-align: center;
+}
+
+#Confirmar{
+  background-color: rgb(209, 52, 52);
+}
+
+#Confirmar{
+  background-color: rgb(202, 40, 40);
+}
+
+.cadastro-principall{
+  padding-top: 75px;
+  position: absolute;
+  width: calc(100% - 300px);
+  left: 300px;
+  min-height: 100vh;
+  background: var(--white);
+  transition: 0.5s;
+}
+
+.cadastro-principall.active {
+  width: calc(100% - 80px);
+  left: 80px;
+}
+
+.admindashboard{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 10px auto;
+  padding: 0 20px;
+}
+
+.headerr {
+  background: linear-gradient(135deg, #3552cf 0%, #010124 100%);
+  color: white;
+  padding: 30px 20px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.headerr h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.headerr p {
+  opacity: 0.9;
+  font-size: 16px;
+}
+
+.table-container {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: white;
+}
+
+th, td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #eef2f7;
+}
+
+th {
+  background-color: #f8fafc;
+  font-weight: 600;
+  color: #64748b;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+td {
+  font-size: 15px;
+  color: #334155;
+}
+
+tr:hover {
+  background-color: #f8fafc;
+  transition: all 0.3s ease;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.edit-btn {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+}
+
+#deletao {
+  background-color: #ef4444;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #dc2626;
+  transform: translateY(-1px);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 15px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+      transform: translateY(-50px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+.close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #64748b;
+  transition: color 0.3s ease;
+}
+
+.close:hover {
+  color: #1e293b;
+}
+
+.modal-content h2 {
+  color: #1e293b;
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #64748b;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background-color: white;
+  cursor: pointer;
+}
+
+.form-group select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.save-btn {
+  background-color: #3b82f6;
+  color: white;
+  padding: 12px 24px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.save-btn:hover {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+}
+
+/* Status Badge */
+.role-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.role-admin {
+  background-color: #fee2e2;
+  color: #ef4444;
+}
+
+.role-editor {
+  background-color: #e0e7ff;
+  color: #4f46e5;
+}
+
+.role-user {
+  background-color: #dcfce7;
+  color: #22c55e;
+}
+
+#staticBackdrop{
+  z-index: 2000;
+}

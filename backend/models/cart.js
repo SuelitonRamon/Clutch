@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'user', // Tabela de usuários
+        model: 'usuario', // Tabela de usuários
         key: 'id'
       }
     },

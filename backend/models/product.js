@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     preco: {
       type: DataTypes.DECIMAL(10, 2)
     },
-    genero: {
+    categoria: {
       type: DataTypes.STRING
     },
     capa: {

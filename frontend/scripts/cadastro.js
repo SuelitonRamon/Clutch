@@ -2,6 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Selecione o formulário de cadastro
     const formCadastro = document.querySelector('.cadastro-form');
 
+    const token = localStorage.getItem('token');
+    if (token) {
+        window.location.href = 'index.html';
+    }
+
+
     formCadastro.addEventListener('submit', async (e) => {
         e.preventDefault(); // Evita o envio padrão do formulário
 
@@ -41,4 +47,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-});
+})
