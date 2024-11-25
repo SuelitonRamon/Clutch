@@ -46,9 +46,16 @@ function decodeToken(token) {
 }
 
 const token = localStorage.getItem('token');
-const userData = decodeToken(token);
-const role = userData.role;
 
-// if(role != 'admin'){
-//     window.location.href = 'index.html';
-// }
+// Verifica se o token existe
+if (!token) {
+  window.location.href = 'index.html';
+} else {
+  const userData = decodeToken(token); // Decodifica o token somente se ele existir
+  const role = userData.role;
+
+  // Verifica se a role é diferente de 'admin'
+  if (role !== 'admin') {
+    window.location.href = 'index.html';
+  }
+}

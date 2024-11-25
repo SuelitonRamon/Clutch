@@ -187,13 +187,81 @@ async function fetchProducts() {
     try {
         const response = await axios.get('http://localhost:3000/api/products');
         const products = response.data;
+        const container = document.querySelector('.container');
+        const userslist = document.querySelector('#userTableBody');
+        const productlistmobile = document.querySelector('.product-list');
+  
+        if (!container) {
+          console.error('Elemento "container" não encontrado no DOM.');
+          return;
+        }
+
+        userslist.style.display = 'table-row-group';
+        container.style.display = 'block';
+        productlistmobile.style.display = 'none';
+        
+
+        if (!userslist) {
+          console.error('Elemento "userTableBody" não encontrado no DOM.');
+          return;
+        }
+
+
+        userslist.innerHTML = ''; // Limpa a lista antes de renderizar os usuários
+  
+        products.forEach((product) => {
+            const row = document.createElement('tr');
+            const maxLength = 30;
+            const id = product.id;
+            const nome = product.nome.length > maxLength ? product.nome.slice(0, maxLength) + "..." : product.nome;
+            const preco = product.preco;
+            const categoria = product.categoria;
+
+            row.innerHTML = `
+            <td>#${id.toString().padStart(3, '0')}</td>
+            <td>${nome}</td>
+            <td>${preco}</td>
+            <td><span class="role-badge ${categoria}">${categoria}</span></td>
+            <td class="actions">
+                <button class="edit-btn" onclick="updateProduct(${id})">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                    Editar
+                </button>
+                <button id="deletao" class="delete-btn" onclick="deleteProduct(${id})" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                    Deletar
+                </button>
+            </td>
+        `;
+
+            userTableBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Erro ao buscar os produtos:', error);
+    }
+}
+
+async function fetchProductsMobile() {
+    try {
+        const response = await axios.get('http://localhost:3000/api/products');
+        const products = response.data;
 
         const productlist = document.querySelector('.product-list');
-
-        if (!productlist) {
-            console.error('Elemento .product-list não encontrado no DOM.');
-            return;
+        const container = document.querySelector('.container');
+        const userslistdesktop = document.querySelector('#userTableBody');
+  
+        if (!container) {
+          console.error('Elemento "container" não encontrado no DOM.');
+          return;
         }
+
+        userslistdesktop.style.display = 'none';
+        container.style.display = 'none';
+        productlist.style.display = 'flex';
 
         productlist.innerHTML = '';
 
@@ -223,6 +291,22 @@ async function fetchProducts() {
     }
 }
 
+function handleFetchProducts() {
+    const mediaQuery = window.matchMedia('(max-width: 480px)'); // Define o breakpoint para telas mobile
+  
+    if (mediaQuery.matches) {
+      // Se for uma tela mobile, use a função específica
+      fetchProductsMobile();
+    } else {
+      // Caso contrário, use a função para desktop
+      fetchProducts();
+    }
+  }
+  
+  // Adiciona um listener para reagir a mudanças no tamanho da tela
+  const mediaQuery = window.matchMedia('(max-width: 768px)');
+  mediaQuery.addEventListener('change', handleFetchProducts);
+
 document.addEventListener('DOMContentLoaded', function () {
-    fetchProducts();
+    handleFetchProducts();
 });
