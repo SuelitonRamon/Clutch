@@ -1,5 +1,16 @@
 const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get('id');
+const API_URL = "http://localhost:3000"; // URL do backend
+const token = localStorage.getItem('token'); // Certifique-se de que o token JWT está armazenado
+
+// Configuração padrão do Axios
+const axiosInstance = axios.create({
+    baseURL: API_URL,
+    headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    }
+});
 
 console.log(productId); // Exibe o ID no console
 
@@ -61,8 +72,8 @@ async function fetchProducts() {
                                 <p>${product.descricao} </p>
                             </section>
                             <section class="section2">
-                                <p class="product-price">${product.preco}</p>
-                                <button class="buy-button">
+                                <p class="product-price">R$${product.preco}</p>
+                                <button onclick="addToCart(${product.id})" class="buy-button">
                                     <img class="buy-cart" src="sources/carrinho-de-compras.png" alt="">
                                     COMPRAR
                                 </button>
@@ -92,6 +103,20 @@ async function fetchProducts() {
             
     } catch (error) {
         console.error('Erro ao buscar os produtos:', error);
+    }
+}
+
+    // Adicionar item ao carrinho
+async function addToCart(productId) {
+    try {
+        const response = await axiosInstance.post('/cart/add', {
+            productId,
+            quantidade: 1
+        });
+        alert('Produto adicionado ao carrinho!');
+    } catch (error) {
+        console.error('Erro ao adicionar produto:', error.response?.data || error.message);
+        alert(error.response?.data.error || 'Erro ao adicionar produto!');
     }
 }
 

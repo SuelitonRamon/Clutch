@@ -3,6 +3,7 @@ const express = require('express');
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 const { sequelize } = require('./config/database');
 const cors = require('cors');
 const path = require('path');
@@ -16,6 +17,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api', productRoutes);
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
+app.use('/cart', cartRoutes);
 
 
 app.listen(port, async () => {

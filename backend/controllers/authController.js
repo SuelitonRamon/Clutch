@@ -61,3 +61,43 @@ exports.verificarRole = (roleRequerida) => {
         next(); // Usuário autenticado e autorizado
     };
 };
+
+exports.authMiddleware = async (req, res, next) => {
+    try {
+      // Pegar o token do header
+      const authHeader = req.headers.authorization;
+      
+      if (!authHeader) {
+        return res.status(401).json({ error: 'Token não fornecido' });
+      }
+  
+      // Formato do header: "Bearer <token>"
+      const [, token] = authHeader.split(' ');
+  
+      if (!token) {
+        return res.status(401).json({ error: 'Token não fornecido' });
+      }
+  
+      try {
+        // Verificar token (substitua 'sua_chave_secreta' pela sua chave real)
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'sua_chave_secreta');
+        
+        // Buscar usuário
+        const user = await User.findByPk(decoded.id);
+        
+        if (!user) {
+          return res.status(401).json({ error: 'Usuário não encontrado' });
+        }
+  
+        // Adicionar usuário à requisição
+        req.user = user;
+        
+        return next();
+      } catch (err) {
+        return res.status(401).json({ error: 'Token inválido' });
+      }
+    } catch (error) {
+      return res.status(500).json({ error: 'Erro na autenticação' });
+    }
+  };
+  

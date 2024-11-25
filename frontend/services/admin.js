@@ -49,6 +49,6 @@ const token = localStorage.getItem('token');
 const userData = decodeToken(token);
 const role = userData.role;
 
-if(role != 'admin'){
-    window.location.href = 'index.html';
-}
+// if(role != 'admin'){
+//     window.location.href = 'index.html';
+// }
