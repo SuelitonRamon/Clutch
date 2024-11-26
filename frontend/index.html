@@ -37,9 +37,10 @@
                     <div class="dropdown">
                         <button class="dropbtn">CATEGORIAS</button>
                             <div class="dropdown-content">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
+                            <a onclick="filtrarProdutos(this)" data-categoria="Gabinete" href="#">Gabinete</a>
+                            <a onclick="filtrarProdutos(this)" data-categoria="Headset" href="#">Headset</a>
+                            <a onclick="filtrarProdutos(this)" data-categoria="Teclado" href="#">Teclado</a>
+                            <a onclick="filtrarProdutos(this)" data-categoria="SmartWatch" href="#">SmartWatch</a>
                             </div>
                     </div>
                     <div class="dropdown">
@@ -156,6 +157,7 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="services/api.js"></script>
   <script src="services/app.js"></script>
+  <script src="services/filter.js"></script>
   <script src="services/cart.js"></script>
 </body>
 </html>

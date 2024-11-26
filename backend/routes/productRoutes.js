@@ -32,4 +32,6 @@ router.patch('/products/:id',
 // Rota para excluir um produto
 router.delete('/products/:id', verificarToken, verificarRole('admin'), productController.deleteProduct);
 
+router.get('/filter', productController.filterProducts);
+
 module.exports = router;

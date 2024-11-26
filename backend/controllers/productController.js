@@ -67,6 +67,22 @@ const getProductById = async (req, res) => {
   }
 };
 
+const filterProducts = async (req, res) => {
+  const { categoria } = req.query;
+  
+  try{
+    console.log(req.query);
+    const products = await Product.findAll({where: { categoria }});
+    if (!products || products.length === 0) {
+      return res.status(404).json({ message: 'Nenhum produto encontrado.' });
+    }
+    return res.status(200).json(products);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Erro ao obter produto.' })
+  }
+}
+
 // Função para atualizar um produto
 const updateProduct = async (req, res) => {
   try {
@@ -138,6 +154,7 @@ module.exports = {
   createProduct,
   getAllProducts,
   getProductById,
+  filterProducts,
   updateProduct,
   deleteProduct
 };
