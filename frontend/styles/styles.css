@@ -783,3 +783,14 @@ iframe{
 .error403div h1{
   text-align: center;
 }
+
+.notfound{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.decepcao{
+  width: 400px;
+}

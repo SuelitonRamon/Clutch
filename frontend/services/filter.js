@@ -1,14 +1,43 @@
-window.filtrarProdutos = async function (element) {
-    try{
-        const categoria = element.dataset.categoria;
-        const response = await axios.get(`http://localhost:3000/api/filter?categoria=${categoria}`)
+document.getElementById('search-bar').addEventListener('keypress', function (event) {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Impede o comportamento padrão
+      const query = event.target.value.trim(); // Captura o texto digitado
+      if (!query) {
+        alert('Por favor, insira um termo para busca.');
+        return;
+      }
+      window.location.href = `filter.html?query=${encodeURIComponent(query)}`; // Redireciona para a página de resultados
+    }
+  });
+
+window.filtrarProdutos = function (element) {
+    // Obtém a categoria do dataset do elemento clicado
+    const categoria = element.dataset.categoria;
+
+    // Redireciona para a página de produtos, passando a categoria como parâmetro na URL
+    window.location.href = `search.html?categoria=${encodeURIComponent(categoria)}`;
+};
+
+
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        // Captura os parâmetros da URL
+        const params = new URLSearchParams(window.location.search);
+        const categoria = params.get('categoria'); // Obtém o valor do parâmetro 'categoria'
+
+        // Faz a chamada para a API para buscar os produtos da categoria
+        const response = await axios.get(`http://localhost:3000/api/filter?categoria=${categoria}`);
         const products = response.data;
-        if(!products || products.length === 0){
-            console.log("Nenhum produto encontrado!")
-        }
         const itensContainer = document.querySelector('.itens');
 
-        itensContainer.innerHTML = '';
+        if (!products || products.length === 0) {
+            console.log("Nenhum produto encontrado!");
+            itensContainer.innerHTML = '<p>Nenhum produto encontrado para esta categoria.</p>';
+            return;
+        }
+        // Exibe os produtos na página
+ 
+        itensContainer.innerHTML = ''; // Limpa o container
 
         products.forEach(product => {
             const item = document.createElement('div');
@@ -25,7 +54,15 @@ window.filtrarProdutos = async function (element) {
             `;
 
             itensContainer.appendChild(item);
-    })} catch {
-        console.log("Error");
+        });
+    } catch (error) {
+        const itensContainer = document.querySelector('.itens');
+        console.error("Erro ao carregar os produtos:", error);
+        itensContainer.innerHTML = `
+        <div class="notfound">
+            <h1>Nenhum produto encontrado para esta categoria.</h1>
+            <img class="decepcao" src="sources/decepcao.webp"
+        </div>
+        `;
     }
-}
+});

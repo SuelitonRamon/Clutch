@@ -1,4 +1,25 @@
 // Função para buscar os produtos e renderizá-los
+document.getElementById('search-bar').addEventListener('keypress', function (event) {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Impede o comportamento padrão
+      const query = event.target.value.trim(); // Captura o texto digitado
+      if (!query) {
+        alert('Por favor, insira um termo para busca.');
+        return;
+      }
+      window.location.href = `filter.html?query=${encodeURIComponent(query)}`; // Redireciona para a página de resultados
+    }
+  });
+
+window.filtrarProdutos = function (element) {
+    // Obtém a categoria do dataset do elemento clicado
+    const categoria = element.dataset.categoria;
+
+    // Redireciona para a página de produtos, passando a categoria como parâmetro na URL
+    window.location.href = `search.html?categoria=${encodeURIComponent(categoria)}`;
+};
+
+
 async function fetchProducts() {
     try {
         const response = await axios.get('http://localhost:3000/api/products');

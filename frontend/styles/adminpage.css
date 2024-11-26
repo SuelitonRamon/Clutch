@@ -534,7 +534,6 @@ h1 {
   display:flex;
   align-items: center;
   flex-direction: row;
-  padding: 10px;
 }
 
 .new-productdiv button {

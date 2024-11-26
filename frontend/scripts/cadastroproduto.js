@@ -220,7 +220,7 @@ async function fetchProducts() {
             row.innerHTML = `
             <td>#${id.toString().padStart(3, '0')}</td>
             <td>${nome}</td>
-            <td>${preco}</td>
+            <td>R$${preco}</td>
             <td><span class="role-badge ${categoria}">${categoria}</span></td>
             <td class="actions">
                 <button class="edit-btn" onclick="updateProduct(${id})">

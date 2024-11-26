@@ -1,5 +1,6 @@
 const { Product } = require('../models');
 const path = require('path');
+const { Op } = require('sequelize');
 
 // Função para criar um novo produto
 const createProduct = async (req, res) => {
@@ -83,6 +84,26 @@ const filterProducts = async (req, res) => {
   }
 }
 
+const searchProducts = async (req, res) => {
+  const { query } = req.query; // Captura o termo da pesquisa
+  try {
+    const products = await Product.findAll({
+      where: {
+        nome: {
+          [Op.iLike]: `%${query}%` // Pesquisa parcial pelo nome
+        }
+      }
+    });
+    if (!products || products.length === 0) {
+      return res.status(404).json({ message: 'Nenhum produto encontrado.' });
+    }
+    return res.status(200).json(products);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Erro ao buscar produtos.' });
+  }
+};
+
 // Função para atualizar um produto
 const updateProduct = async (req, res) => {
   try {
@@ -155,6 +176,7 @@ module.exports = {
   getAllProducts,
   getProductById,
   filterProducts,
+  searchProducts,
   updateProduct,
   deleteProduct
 };

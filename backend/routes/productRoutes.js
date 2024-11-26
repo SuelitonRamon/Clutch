@@ -34,4 +34,6 @@ router.delete('/products/:id', verificarToken, verificarRole('admin'), productCo
 
 router.get('/filter', productController.filterProducts);
 
+router.get('/search', productController.searchProducts);
+
 module.exports = router;
