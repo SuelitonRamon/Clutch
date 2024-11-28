@@ -9,7 +9,9 @@ module.exports = (sequelize) => {
     },
     usuarioId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
+      onDelete: 'SET NULL', // Define o comportamento de SET NULL
+            onUpdate: 'CASCADE',
       references: {
         model: 'usuario', // Tabela de usuários
         key: 'id'
